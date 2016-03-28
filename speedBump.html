@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>WileyPLUS Support</title>
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+<style>
+	html,input,a {
+		font-family: 'Open Sans';
+	}
+	h2 {
+		font-weight: normal;	
+	}
+	#chatButton {display:none;}
+	.ui-autocomplete-category {
+    font-weight: bold;
+    padding: .2em .4em;
+    margin: .8em 0 .2em;
+    line-height: 1.5;
+  }
+</style>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script>
+ //$("#chatButton").hide();
+  $.widget( "custom.catcomplete", $.ui.autocomplete, {
+    _create: function() {
+      this._super();
+      this.widget().menu( "option", "items", "> :not(.ui-autocomplete-category)" );
+    },
+    _renderMenu: function( ul, items ) {
+      var that = this,
+        currentCategory = "";
+      $.each( items, function( index, item ) {
+        var li;
+        if ( item.category != currentCategory ) {
+          ul.append( "<li class='ui-autocomplete-category'>" + item.category + "</li>" );
+          currentCategory = item.category;
+        }
+        li = that._renderItemData( ul, item );
+        if ( item.category ) {
+          li.attr( "aria-label", item.category + " : " + item.label );
+        }
+      });
+    }
+	 
+  });
+  
+  $(function() {
+    var data = [
+      { label: "Moving Student Account to Different Class Section", category: "You might find a solution faster by trying these" },
+      { label: "Registered for the Wrong Class Section", category: "You might find a solution faster by trying these" },
+      { label: "Top 10 WileyPLUS Student FAQs", category: "You might find a solution faster by trying these" },
+      { label: "Class URL Not Working", category: "You might find a solution faster by trying these" },
+	  { label: "Identifying the Different Registration Codes", category: "You might find a solution faster by trying these" },
+	   { label: "WileyPLUS - Promo Codes", category: "You might find a solution faster by trying these" },
+	   { label: "Invalid Registration Code Error Message", category: "You might find a solution faster by trying these" },
+      { label: "", category: "You might find a solution faster by trying these" },
+      { label: "", category: "You might find a solution faster by trying these" }
+    ];  
+ 
+    $( "#search" ).catcomplete({
+      delay: 0,
+      source: data
+    });
+	
+  });
+  
+  function showButton() {
+	$("#chatButton").show(500);  
+  }
+  </script>
+
+</head>
+
+<body>
+
+<form name="searchForm" action="" method="post">
+<div style="position:absolute; top:150px; left:60px;">
+<h2>Tell us what you need help with</h2>
+<div class="ui-widget">
+  <input type="text" id="search" style="width:520px;height:37px;font-size: 21px;" placeholder="Enter your question here" onkeyup="showButton();" /><a href="javascript:;" style="padding: 13px 50px; color: #fff; text-decoration: none;font-family:arial; background: #40a0dc;" />Search</a>
+  <br /> <br /> <br /> <br /> <br /> <br /> <br /><br /> <br />
+  <div id="chatButton">
+  <a href="http://wileyplus.custhelp.com/app/chat/chat_launch" style="padding: 13px 50px; color: #fff; text-decoration: none;font-family:arial; background: #40a0dc;" />Still Need Help? Start Chat</a>
+  </div>
+</div>
+
+
+
+</div>
+<img src="header_1.png" />
+<img src="page_title_1.png" />
+</form>
+</body>
+</html>
